@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import {
+  Ads,
+  ProductsFilter,
+  ProductsGrid
+} from './components';
+import useFetch from './hooks/useFetch';
 
 function App() {
+  const [currentDataSet, setCurrentDataSet] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentSort, setCurrentSort] = useState(null);
+
+  const { data, loading, error } = useFetch(
+    '/products',
+    { _limit: 20, _page: currentPage, _sort: currentSort }
+  )
+
+  console.log({ data, loading, error })
+
   return (
     <div className='App'>
       <header>
           <h1>Products Grid</h1>
-
           <p>But first, a word from our sponsors:</p>
-          <img
-            className='ad'
-            src={`http://localhost:8000/ads/?r=${Math.floor(Math.random()*1000)}`}
-            alt='ad'/>
+          <Ads />
       </header>
-
-      products goes here..
+      <ProductsFilter />
+      <ProductsGrid />
     </div>
   );
 }
