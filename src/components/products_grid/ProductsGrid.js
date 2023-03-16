@@ -23,7 +23,7 @@ function ProductsGrid({ products }) {
                 thumbnail={thumbnail}
                 discountPercentage={discountPercentage}
               />
-              {/* <Ads /> */}
+              <Ads />
             </Fragment>
           );
         }

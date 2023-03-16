@@ -4,15 +4,15 @@ import parseDollar from '../../helpers/parseDollar';
 
 import './Product.scss';
 
-const Product = (props) => {
-const {
-  discountPercentage,
-  thumbnail,
-  title,
-  rating,
-  price,
-  date
-} = props;
+function Product(props) {
+  const {
+    discountPercentage,
+    thumbnail,
+    title,
+    rating,
+    price,
+    date,
+  } = props;
 
   return (
     <div className="product">
@@ -27,13 +27,16 @@ const {
         <p className="product__price">
           {parseDollar(price)}
         </p>
-        <p className="product__rating">⭐ {rating}</p>
+        <p className="product__rating">
+          ⭐
+          {rating}
+        </p>
         <p className="product__date">
           {parseDate(date)}
         </p>
       </div>
     </div>
   );
-};
+}
 
 export default Product;

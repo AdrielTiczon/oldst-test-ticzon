@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  Ads,
   ProductsFilter,
-  ProductsGrid
+  ProductsGrid,
+  Header,
 } from './components';
 import useFetch from './hooks/useFetch';
 
 import './App.scss';
+import Product from './components/product/Product';
 
 function App() {
   const [currentDataSet, setCurrentDataSet] = useState([]);
@@ -16,14 +17,14 @@ function App() {
 
   const { data, loading, error } = useFetch(
     '/products',
-    { _limit: 20, _page: currentPage, _sort: currentSort }
-  )
+    { _limit: 20, _page: currentPage, _sort: currentSort },
+  );
 
   useEffect(() => {
-    setCurrentDataSet(prev => [...prev, ...data])
-  }, [data])
+    setCurrentDataSet((prev) => [...prev, ...data]);
+  }, [data]);
 
-  console.log({ data, loading, error })
+  console.log({ data, loading, error });
 
   // useEffect(() => {
   //   const link = document.createElement("link");
@@ -37,19 +38,14 @@ function App() {
   const handleSortChange = (sort) => {
     setCurrentDataSet([]);
     setCurrentPage(1);
-    setCurrentSort(sort)
-  }
-
+    setCurrentSort(sort);
+  };
 
   return (
-    <div className='store'>
-      <header>
-          <h1>Products Grid</h1>
-          <p>But first, a word from our sponsors:</p>
-          <Ads />
-      </header>
+    <div className="store">
+      <Header />
       <div className="products-container">
-        {/* <button onClick={() => setCurrentPage(page => page + 1)}>next</button> */}
+        <button onClick={() => setCurrentPage((page) => page + 1)}>next</button>
         <ProductsFilter currentSort={currentSort} handleSortChange={handleSortChange} />
         <ProductsGrid products={currentDataSet} />
       </div>

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 body {
+  background: #f5f5f5;
   font-family: 'Lato', sans-serif;
   margin: 0;
 }
@@ -10,10 +11,10 @@ h1, h2, h3, h4, h5 {
 }
 
 .store {
-  background: #f5f5f5;
+  margin: auto;
+  max-width: 1200px;
 }
 
 .products-container {
-  margin: auto;
-  max-width: 1200px;
+
 }

@@ -1,20 +1,23 @@
 import React from 'react';
 import { API_BASE_URL } from '../../constants';
+import generateRandomNumber from '../../helpers/generateUniqueNumbers';
 
 import './Ads.scss';
 
 // todo: create a purely random generating number not showing twice
 
-const Ads = () => {
-  const adId = Math.floor(Math.random() * 1000);
-  const adUrl = `${API_BASE_URL}/ads/?r=${adId}`;
+const Ads = React.memo(() => {
+  const randomNumber = generateRandomNumber();
+  const adUrl = `${API_BASE_URL}/ads/?r=${randomNumber}`;
 
   return (
-    <div className="ad">
-      <img className="ad-image" src={adUrl} alt="advertisement" />
-      <p className="ad-text">advertisement id: {adId}</p>
+    <div className="advertisement">
+      <img className="advertisement__image" src={adUrl} alt="advertisement" />
+      <p className="advertisement__label">
+        {`advertisement (${randomNumber})`}
+      </p>
     </div>
   );
-};
+});
 
 export default Ads;
