@@ -22,7 +22,7 @@ const useFetch = (path, params, options) => {
           .catch((e) => {
             setError(e);
           });
-        
+
         const responseData = await response.json();
         setData(responseData);
       } catch (e) {

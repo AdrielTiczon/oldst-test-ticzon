@@ -48,9 +48,11 @@ function App() {
           <p>But first, a word from our sponsors:</p>
           <Ads />
       </header>
-      <button onClick={() => setCurrentPage(page => page + 1)}>next</button>
-      <ProductsFilter currentSort={currentSort} handleSortChange={handleSortChange} />
-      <ProductsGrid products={currentDataSet} />
+      <div className="products-container">
+        {/* <button onClick={() => setCurrentPage(page => page + 1)}>next</button> */}
+        <ProductsFilter currentSort={currentSort} handleSortChange={handleSortChange} />
+        <ProductsGrid products={currentDataSet} />
+      </div>
     </div>
   );
 }

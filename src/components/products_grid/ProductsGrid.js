@@ -3,13 +3,15 @@ import React, { Fragment } from 'react';
 import Ads from '../ads/Ads';
 import Product from '../product/Product';
 
-import './ProductsGrid.scss'
+import './ProductsGrid.scss';
 
-const ProductsGrid = ({ products }) => {
+function ProductsGrid({ products }) {
   return (
     <div className="products">
       {products.map((product, i) => {
-        const { id, title, price, discountPercentage, rating, thumbnail, date } = product;
+        const {
+          id, title, price, discountPercentage, rating, thumbnail, date,
+        } = product;
         if ((i + 1) % 20 === 0) {
           return (
             <Fragment key={id}>
@@ -36,10 +38,10 @@ const ProductsGrid = ({ products }) => {
             thumbnail={thumbnail}
             discountPercentage={discountPercentage}
           />
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
 export default ProductsGrid;
