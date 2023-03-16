@@ -2,10 +2,17 @@ import React from 'react';
 
 import './ProductsFilter.scss'
 
-const ProductsFilter = () => {
+const ProductsFilter = ({ currentSort, handleSortChange }) => {
+  const filters = ['price', 'title', 'rating'];
+
   return (
-    <div>Products Filter</div>
-  );
+    <div>
+      Sort by:
+    {filters.map((filter) => {
+    return (<button type='button' onClick={() => handleSortChange(filter)}>{filter}</button>)
+  })}
+    </div>
+  )
 };
 
 export default ProductsFilter;
