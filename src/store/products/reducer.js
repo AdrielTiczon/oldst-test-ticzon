@@ -42,6 +42,7 @@ const productsReducer = (currentState, actions) => {
       return {
         ...initialState,
         sort: actions.payload,
+        isPrefetching: true,
         lastAction: actions.type,
       };
     case ACTIONS.PREFETCH_STATUS:
