@@ -1,0 +1,41 @@
+@import '../../styles/config.scss';
+
+.products-header {
+  align-items: center;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 50px;
+  
+  &__text {
+    color: $orange;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  &__label {
+    color: $green;
+    font-size: 1rem;
+    margin: 0;
+    max-width: fit-content;
+
+    @include breakpoint(medium) {
+      font-size: 1.2rem;
+      max-width: 80%;
+    }
+  }
+
+  &__asset {
+    display: none;
+
+    @include breakpoint(medium) {
+      display: block;
+    }
+  }
+
+  &__asset-image {
+    height: 300px;
+    width: 300px;
+  }
+}

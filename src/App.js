@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useReducer,
+} from 'react';
 
 import {
   ProductsFilter,
@@ -8,46 +10,78 @@ import {
 import useFetch from './hooks/useFetch';
 
 import './App.scss';
-import Product from './components/product/Product';
+import productsReducer, { initialState } from './store/products/reducer';
+import ACTIONS from './store/products/types';
 
 function App() {
-  const [currentDataSet, setCurrentDataSet] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentSort, setCurrentSort] = useState(null);
+  const [productStore, dispatch] = useReducer(productsReducer, initialState);
+  const {
+    products,
+    prefetchedPage,
+    sort,
+    lastAction,
+    hasMoreProducts,
+    isPrefetching,
+  } = productStore;
 
   const { data, loading, error } = useFetch(
     '/products',
-    { _limit: 20, _page: currentPage, _sort: currentSort },
+    { _limit: 20, _page: prefetchedPage, _sort: sort },
   );
 
+  const onClickSort = (selectedSort) => () => dispatch({
+    type: ACTIONS.SORT_PRODUCTS,
+    payload: selectedSort,
+  });
+
   useEffect(() => {
-    setCurrentDataSet((prev) => [...prev, ...data]);
-  }, [data]);
+    dispatch({
+      type: ACTIONS.PREFETCH_STATUS,
+      payload: loading,
+    });
+    if (loading) return;
+    if (data && (lastAction === null || lastAction === ACTIONS.SORT_PRODUCTS)) {
+      dispatch({
+        type: ACTIONS.REVEAL_INITIAL_PRODUCTS,
+        payload: data,
+      });
 
-  console.log({ data, loading, error });
+      dispatch({ type: ACTIONS.PREFETCH_PRODUCTS });
+    }
 
-  // useEffect(() => {
-  //   const link = document.createElement("link");
-  //   link.rel = "preload";
-  //   link.href = `http://localhost:8000/products?_limit=20&_page=${currentPage + 1}`;
-  //   link.as = 'fetch';
-  //   document.head.appendChild(link);
+    if (lastAction === ACTIONS.PREFETCH_PRODUCTS) {
+      dispatch({ type: ACTIONS.PREPARE_PREFETCH_PRODUCTS, payload: data });
+    }
+  }, [data, loading, error]);
 
-  // }, [currentPage]);
+  useEffect(() => {
+    function handleScroll() {
+      if (hasMoreProducts && window.innerHeight
+         + document.documentElement.scrollTop
+         === (document.documentElement.offsetHeight)) {
+        dispatch({
+          type: ACTIONS.REVEAL_PRODUCTS,
+        });
 
-  const handleSortChange = (sort) => {
-    setCurrentDataSet([]);
-    setCurrentPage(1);
-    setCurrentSort(sort);
-  };
+        dispatch({ type: ACTIONS.PREFETCH_PRODUCTS });
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, hasMoreProducts]);
 
   return (
     <div className="store">
       <Header />
       <div className="products-container">
-        <button onClick={() => setCurrentPage((page) => page + 1)}>next</button>
-        <ProductsFilter currentSort={currentSort} handleSortChange={handleSortChange} />
-        <ProductsGrid products={currentDataSet} />
+        <ProductsFilter currentSort={sort} onClickSort={onClickSort} />
+        <ProductsGrid
+          products={products}
+          hasMoreData={hasMoreProducts}
+          loading={isPrefetching}
+          error={error}
+        />
       </div>
     </div>
   );

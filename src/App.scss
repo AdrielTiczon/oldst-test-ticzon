@@ -1,20 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+// https://coolors.co/ebebeb-264653-2a9d8f-e9c46a-f4a261-e76f51
+@import './styles/config.scss';
 
 body {
-  background: #f5f5f5;
-  font-family: 'Lato', sans-serif;
-  margin: 0;
-}
-
+    background: #f5f5f5;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+  }
 h1, h2, h3, h4, h5 {
   margin: 0
 }
 
 .store {
   margin: auto;
-  max-width: 1200px;
+
+  @include breakpoint(large) {
+    max-width: 1200px;
+  }
 }
 
-.products-container {
 
-}

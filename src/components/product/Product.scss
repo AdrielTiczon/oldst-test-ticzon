@@ -1,6 +1,8 @@
+@import '../../styles/config.scss';
+
 .product {
-  background: #ffffff;
-  box-shadow: 1px 1px 8px lightgray;
+  background: $white;
+  box-shadow: 1px 1px 8px $light-gray;
   cursor: pointer;
 
   &:hover {
@@ -24,10 +26,10 @@
   }
 
   &__percentage {
-    background: #2a9d8f;
+    background: $dark-green;
     border-top-right-radius: 10px;
     bottom: 0;
-    color: #EFD595;
+    color: $yellow;
     font-size: 1rem;
     font-weight: 400;
     left: 0;
@@ -53,7 +55,7 @@
   }
 
   &__price {
-    color: #e76f51;
+    color: $light-orange;
     font-size: 1.3rem;
     font-weight: bold;
     margin: 5px 0 0 0;
@@ -69,7 +71,7 @@
   }
 
   &__date {
-    color: darkgray;
+    color: $darker-gray;
     font-size: 0.9rem;
     font-weight: 100;
   }

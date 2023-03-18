@@ -1,3 +1,3 @@
-const parseDollar = (money) => `$${money.toLocaleString('en', { minimumFractionDigits: 2 })}`;
+const parseDollar = (money) => `$${money.toLocaleString('en', { minimumFractionDigits: 0 })}`;
 
 export default parseDollar;
