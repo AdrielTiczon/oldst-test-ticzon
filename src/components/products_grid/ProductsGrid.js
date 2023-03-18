@@ -36,6 +36,12 @@ function ProductsGrid({
           );
         })}
       </div>
+      {hasMoreData && !loading
+        && (
+        <div className="products-scroll">
+          Scroll ⬇ to load more data
+        </div>
+        )}
       {error && <span>Something went wrong.</span>}
       {hasMoreData && loading && <Loader />}
       {products.length > 0 && !hasMoreData && <h5 className="products-empty">~ end of catalogue ~</h5> }

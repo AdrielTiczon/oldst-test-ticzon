@@ -4,6 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  max-height: 100px;
+  height: 100px;
+
 
   &__spinner {
     border: 5px solid $dark-green;
